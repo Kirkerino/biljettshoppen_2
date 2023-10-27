@@ -53,8 +53,8 @@ public class Main {
                  \s
                  Vad vill du göra?\s
                  1 - Visa event\s
-                 2 - Visa platser\s
-                 3 - *Val 3*\s
+                 2 - Visa bokade events\s
+                 3 - Visa användarinformation\s
                  4 - Admin\s
                  Q - För att avsluta""");
         kommando = scanner.nextLine();
@@ -63,6 +63,7 @@ public class Main {
         switch (kommando) {
 
             case "1":
+
                 // Visa Event
                 System.out.println("\nPågående event");
                 for (int i = 0; i < events.size(); i++) {
@@ -86,7 +87,7 @@ public class Main {
                     }
 
                     // Boka plats för valt event
-                    System.out.println("\nVill du boka en biljett för detta event? (Ja/Nej)");
+                    System.out.println("\nVill du boka biljetter för detta event? (Ja/Nej)");
                     String bokaBiljett = scanner.nextLine();
 
                     if (bokaBiljett.equalsIgnoreCase("Ja")) {
@@ -111,7 +112,7 @@ public class Main {
                         double totalPris = antalBiljetter * prisPerBiljett;
 
                         // Informera användaren om den totala kostnaden och fråga om de vill fortsätta
-                        System.out.println("Total kostnad för " + antalBiljetter + " biljetter är: " + totalPris + " kr.");
+                        System.out.println("\nTotal kostnad för " + antalBiljetter + " biljetter är: " + totalPris + " kr.");
 
                         System.out.println("Välj betalningsmetod (1 för Direktbetalning, 2 för Faktura): ");
                         int choice = scanner.nextInt();
@@ -124,7 +125,7 @@ public class Main {
                         }
 
                         Bokning nyBokning = new Bokning(username, betalning, biljettMusikkonsert);
-                        System.out.println("Bekräfta din bokning? (Ja/Nej)");
+                        System.out.println("\nBekräfta din bokning? (Ja/Nej)");
                         String bekreftelse = scanner.next();
 
                         if (bekreftelse.equalsIgnoreCase("Ja")) {
@@ -132,7 +133,8 @@ public class Main {
                             nyBokning.genomforBokning(biljettPris);
 
                             // Efter att bokningen är genomförd kan man ge användaren en bekräftelse
-                            System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats.");
+                            System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats för event: " + chosenEvent);
+                            scanner.nextLine();
                         } else {
                             System.out.println("Bokning avbruten.");
                         }
@@ -150,12 +152,6 @@ public class Main {
                 break;
 
             case "2":
-                // Visa tillgängliga platser
-                System.out.println("Tillgängliga platser:");
-                for (Plats plats : platser) {
-                    int slumpmassigtAntalLediga = random.nextInt(250) + 1;
-                    System.out.println("Typ: " + plats.getPlatsTyp() + ", Antal lediga: " + slumpmassigtAntalLediga+ " av 250");
-                }
                 break;
 
             case "3": // Boka och betala
@@ -221,12 +217,12 @@ public class Main {
                 boolean inloggad = admin.login();
                 break;
 
-
             case "Q":
                 forsatta="Q";
                 break;
 
                 }//Avslutar switch
+
             }// Avslutar While loopen
         }
         scanner.close(); // Avslutar scanner
