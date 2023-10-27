@@ -100,7 +100,7 @@ public class Main {
                 betalning = new Faktura();
             }
 
-            Bokning nyBokning = new Bokning(username, betalning, biljett);
+            Bokning nyBokning = new Bokning(username, betalning, biljettMusikkonsert);
                 System.out.println("Bekräfta din bokning? (Ja/Nej)");
                      String bekreftelse = scanner.next();
 
