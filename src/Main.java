@@ -154,55 +154,8 @@ public class Main {
             case "2":
                 break;
 
-            case "3": // Boka och betala
-                int antalBiljetter = 0;
-                System.out.println("Du har valt att boka biljetter.");
-                while (true) {
-                    System.out.println("Ange antal biljetter du vill boka (max 5):");
-                    try {
-                        antalBiljetter = Integer.parseInt(scanner.nextLine());
-
-                        if (antalBiljetter > 0 && antalBiljetter <= 5) {
-                            break; // om antalet är inom tillåtna gränser, bryt while-loopen
-                        } else {
-                            System.out.println("Du kan bara boka upp till 5 biljetter.");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Ogiltigt antal. Vänligen ange ett nummer.");
-                        // loopen fortsätter så att användaren kan försöka igen
-                    }}
-
-                // Antag att vi har ett fast pris per biljett. Detta vara dynamiskt.
-                double prisPerBiljett = 500.0; // Exempelpris
-                double totalPris = antalBiljetter * prisPerBiljett;
-
-                // Informera användaren om den totala kostnaden och fråga om de vill fortsätta
-                System.out.println("Total kostnad för " + antalBiljetter + " biljetter är: " + totalPris + " kr.");
-
-                System.out.println("Välj betalningsmetod (1 för Direktbetalning, 2 för Faktura): ");
-                int choice = scanner.nextInt();
-                Betalning betalning;
-
-                if (choice == 1) {
-                    betalning = new Direktbetalning();
-                } else {
-                    betalning = new Faktura();
-                }
-
-            Bokning nyBokning = new Bokning(username, betalning, biljettMusikkonsert);
-            System.out.println("Bekräfta din bokning? (Ja/Nej)");
-            String bekreftelse = scanner.next();
-
-            if (bekreftelse.equalsIgnoreCase("Ja")) {
-                double biljettPris = 500.0;// Exempelpris
-                nyBokning.genomforBokning(biljettPris);
-
-                      // Efter att bokningen är genomförd kan man ge användaren en bekräftelse
-                System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats.");
-                  } else {
-                    System.out.println("Bokning avbruten.");
-                  }
-                  break;
+            case "3":
+                break;
 
             case "4": //Admin
                 System.out.print("Ange ditt användarnamn: ");
