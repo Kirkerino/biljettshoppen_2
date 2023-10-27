@@ -59,9 +59,7 @@ class Bokning {
         }
     }
 
-    // ... [andra metoder]
-
-    // Du kan också vilja ha en metod för att kontrollera om bokningen har bekräftats, till exempel:
+    // metod för att kontrollera om bokningen har bekräftats
     public boolean isBekräftad() {
         return this.isConfirmed;
     }
