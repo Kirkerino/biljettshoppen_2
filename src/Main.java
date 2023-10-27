@@ -57,11 +57,32 @@ public class Main {
 
         switch (kommando) {
 
-            case "1": // Visa Event
-                System.out.println("Du vill se vilka event som pågår: \n");
-                System.out.println(musikkonsert + "\n");
-                System.out.println(hockey + "\n");
+            case "1":
+                // Visa Event
+                System.out.println("\nPågående event");
+                for (int i = 0; i < events.size(); i++) {
+                    System.out.println((i+1) + ": " + events.get(i));
+                }
+                // Välja event
+                System.out.println("\nVälj ett event genom att ange dess nummer, välj 0 för att gå tillbaka:");
+                int eventChoice = Integer.parseInt(scanner.nextLine());
 
+                if (eventChoice == 0) {
+                    break;
+                } else if (eventChoice > 0 && eventChoice <= events.size()) {
+                    Event chosenEvent = events.get(eventChoice - 1);
+                    System.out.println("Du har valt: " + chosenEvent + "\n");
+
+                    // Visa platser för valt event
+                    System.out.println("Tillgängliga platser:");
+                    for (Plats plats : platser) {
+                        int slumpmassigtAntalLediga = random.nextInt(250) + 1;
+                        System.out.println("Typ: " + plats.getPlatsTyp() + ", Antal lediga: " + slumpmassigtAntalLediga+ " av 250");
+                    }
+
+                } else {
+                    System.out.println("Ogiltigt val, försök igen.");
+                }
                 break;
 
             case "2":

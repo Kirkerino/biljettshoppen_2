@@ -13,7 +13,7 @@ class Event {
 
     @Override
     public String toString() {
-        return "Event: " + name + ", Arena: " + ((arena != null) ? arena.toString() : "Ingen arena");
-    // Andra metoder
+        return name + " - " + ((arena != null) ? arena.toString() : "Ingen arena");
+
 }}
 
