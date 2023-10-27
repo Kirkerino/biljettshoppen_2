@@ -23,9 +23,13 @@ public class Main {
 
         // Skapa event
         Event musikkonsert = new Event("Musikkonsert", avicii);
-        Event hockey = new Event("Hockey - Falun vs Borlänge", globen);
-        /* Skapa arraylist för event */
-        
+        Event hockey = new Event("Hockey, Falun vs Borlänge", globen);
+
+        // Skapa arraylist för event
+        List<Event> events = new ArrayList<>();
+        events.add(musikkonsert);
+        events.add(hockey);
+
         // Skapa biljetter
         Biljett biljettMusikkonsert = new Biljett(musikkonsert, valdPlats);
         Biljett biljettHockey = new Biljett(hockey, valdPlats);
