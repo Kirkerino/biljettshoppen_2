@@ -50,7 +50,7 @@ class Bokning {
             this.isConfirmed = true;
             System.out.println("Bokningen har bekräftats för " + this.customer);
 
-            // Här kan du lägga till ytterligare åtgärder som behövs efter bekräftelse av bokningen,
+            // Här kan man lägga till ytterligare åtgärder som behövs efter bekräftelse av bokningen,
             // till exempel att skicka en bekräftelse via e-post, uppdatera databasen, etc.
 
         } else {

@@ -93,7 +93,7 @@ public class Main {
                         // loopen fortsätter så att användaren kan försöka igen
                     }}
 
-                // Antag att vi har ett fast pris per biljett. I en verklig applikation kan detta vara dynamiskt.
+                // Antag att vi har ett fast pris per biljett. Detta vara dynamiskt.
                 double prisPerBiljett = 500.0; // Exempelpris
                 double totalPris = antalBiljetter * prisPerBiljett;
 
@@ -118,7 +118,7 @@ public class Main {
                       double biljettPris = 500.0;// Exempelpris
                       nyBokning.genomforBokning(biljettPris);
 
-                      // Efter att bokningen är genomförd kan du ge användaren en bekräftelse
+                      // Efter att bokningen är genomförd kan man ge användaren en bekräftelse
                       System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats.");
                   } else {
                       System.out.println("Bokning avbruten.");

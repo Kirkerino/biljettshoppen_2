@@ -31,5 +31,5 @@ public class Plats {
         // Avbokningslogik här
     }
 
-    // Om det finns specifika funktioner beroende på platsTyp, kan du lägga till dem här och använda villkorliga uttalanden (if-satser) beroende på platsTyp.
+    // Om det finns specifika funktioner beroende på platsTyp, man kan lägga till dem här och använda villkorliga uttalanden (if-satser) beroende på platsTyp.
 }

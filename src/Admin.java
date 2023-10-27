@@ -5,7 +5,7 @@ class Admin extends User {
 
     @Override
     public boolean login() {
-        // Här kan du implementera en enkel inloggningslogik
+        // Här kan man implementera en enkel inloggningslogik
         String AdminUsername = "admin"; // Ange det rätta användarnamnet
         String AdminPassword = "admin"; // Ange det rätta lösenordet
 
