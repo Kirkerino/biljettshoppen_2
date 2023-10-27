@@ -11,7 +11,7 @@ class Arena {
 
     @Override
     public String toString() {
-        return "Arena: " + name;
+        return name;
     }
 }
 

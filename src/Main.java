@@ -10,51 +10,61 @@ public class Main {
         Random random = new Random();
 
     {
-
-        // några exempelobjekt
-
-
-        Arena arena = new Arena("Stora Arenan");
-        Event event = new Event("Musikkonsert", arena);
-        Biljett biljett = new Biljett(event);
-
-
-                System.out.println("Välkommen till biljettsystemet!");
-                System.out.print("Ange ditt användarnamn: ");
-                String username = scanner.nextLine();
-
-                System.out.print("Ange ditt lösenord: ");
-                String password = scanner.nextLine();
-
-                Customer customer = new Customer(username, password);
         List<Plats> platser = new ArrayList<>();
         platser.add(new Plats(200.0, "Staplats"));
         platser.add(new Plats(300.0, "Sittplats"));
         platser.add(new Plats(150.0, "Handikappanpassad"));
+        Plats valdPlats = platser.get(0);
+
+        // Skapa arenor
+        Arena avicii = new Arena("Avicii Arena");
+        Arena globen = new Arena("Globen Arena");
+
+        // Skapa event
+        Event musikkonsert = new Event("Musikkonsert", avicii);
+        Event hockey = new Event("Hockey - Falun vs Borlänge", globen);
+        /* Skapa arraylist för event */
+        
+        // Skapa biljetter
+        Biljett biljettMusikkonsert = new Biljett(musikkonsert, valdPlats);
+        Biljett biljettHockey = new Biljett(hockey, valdPlats);
+        /* Skapa arraylist för biljetter */
+
+
+       System.out.println("Välkommen till biljettsystemet!");
+       System.out.print("Ange ditt användarnamn: ");
+       String username = scanner.nextLine();
+
+       System.out.print("Ange ditt lösenord: ");
+       String password = scanner.nextLine();
+
+        Customer customer = new Customer(username, password);
+
 
 
         while (!forsatta.equalsIgnoreCase("Q")){
 
         System.out.println("""
+                 \s
                  Vad vill du göra?\s
-                 Visa platser\s
-                 Event - För att se event)\s
-                 Boka och betala - för att betala\s
-                 Admin\s
-                 V - För att visa hjältar\s
+                 1 - Visa event\s
+                 2 - Visa platser\s
+                 3 - Boka och betala\s
+                 4 - Admin\s
                  Q - För att avsluta""");
         kommando = scanner.nextLine();
 
 
         switch (kommando) {
 
-            case "Event":
-                System.out.println("Du vill se vilka event så pågår: \n");
-                System.out.println(event + "\n");
+            case "1": // Visa Event
+                System.out.println("Du vill se vilka event som pågår: \n");
+                System.out.println(musikkonsert + "\n");
+                System.out.println(hockey + "\n");
+
                 break;
 
-            case "Visa platser":
-            case "1":
+            case "2":
                 // Visa tillgängliga platser
                 System.out.println("Tillgängliga platser:");
                 for (Plats plats : platser) {
@@ -63,7 +73,7 @@ public class Main {
                 }
                 break;
 
-            case "Boka och betala":
+            case "3": // Boka och betala
                 int antalBiljetter = 0;
 
                 System.out.println("Du har valt att boka biljetter.");
@@ -112,23 +122,21 @@ public class Main {
                       System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats.");
                   } else {
                       System.out.println("Bokning avbruten.");
-                      break;
                   }
+                     break;
 
+            case "4": //Admin
+                System.out.print("Ange ditt användarnamn: ");
+                String AdminUsername = scanner.nextLine();
 
+                System.out.print("Ange ditt lösenord: ");
+                String AdminPassword = scanner.nextLine();
 
+                Admin admin = new Admin(AdminUsername, AdminPassword);
 
-            case "Admin":
-                System.out.print("Ange ditt administratörsanvändarnamn: ");
-                String adminUsername = scanner.nextLine(); // Använd ett annat namn här
-
-                System.out.print("Ange ditt administratörslösenord: ");
-                String adminPassword = scanner.nextLine(); // Använd ett annat namn här
-
-                Admin admin = new Admin(adminUsername, adminPassword);
+                // Anropa login-metoden för att försöka logga in
+                boolean inloggad = admin.login();
                 break;
-
-
 
 
             case "Q":

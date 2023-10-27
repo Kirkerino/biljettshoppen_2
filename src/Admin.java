@@ -7,7 +7,7 @@ class Admin extends User {
     public boolean login() {
         // Här kan du implementera en enkel inloggningslogik
         String AdminUsername = "admin"; // Ange det rätta användarnamnet
-        String AdminPassword = "password"; // Ange det rätta lösenordet
+        String AdminPassword = "admin"; // Ange det rätta lösenordet
 
         if (username.equals(AdminUsername) && password.equals(AdminPassword)) {
             System.out.println("Admin inloggad.");
