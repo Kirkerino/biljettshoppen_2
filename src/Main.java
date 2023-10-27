@@ -54,7 +54,7 @@ public class Main {
                  Vad vill du göra?\s
                  1 - Visa event\s
                  2 - Visa platser\s
-                 3 - Boka och betala\s
+                 3 - *Val 3*\s
                  4 - Admin\s
                  Q - För att avsluta""");
         kommando = scanner.nextLine();
@@ -83,6 +83,65 @@ public class Main {
                     for (Plats plats : platser) {
                         int slumpmassigtAntalLediga = random.nextInt(250) + 1;
                         System.out.println("Typ: " + plats.getPlatsTyp() + ", Antal lediga: " + slumpmassigtAntalLediga+ " av 250");
+                    }
+
+                    // Boka plats för valt event
+                    System.out.println("\nVill du boka en biljett för detta event? (Ja/Nej)");
+                    String bokaBiljett = scanner.nextLine();
+
+                    if (bokaBiljett.equalsIgnoreCase("Ja")) {
+                        int antalBiljetter = 0;
+                        System.out.println("\nDu har valt att boka biljetter för event: " + chosenEvent);
+                        while (true) {
+                            System.out.println("Ange antal biljetter du vill boka (max 5):");
+                            try {
+                                antalBiljetter = Integer.parseInt(scanner.nextLine());
+                                if (antalBiljetter > 0 && antalBiljetter <= 5) {
+                                    break; // om antalet är inom tillåtna gränser, bryt while-loopen
+                                } else {
+                                    System.out.println("Du kan bara boka upp till 5 biljetter.");
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Ogiltigt antal. Vänligen ange ett nummer.");
+                                // loopen fortsätter så att användaren kan försöka igen
+                            }}
+
+                        // Antag att vi har ett fast pris per biljett. Detta vara dynamiskt.
+                        double prisPerBiljett = 500.0; // Exempelpris
+                        double totalPris = antalBiljetter * prisPerBiljett;
+
+                        // Informera användaren om den totala kostnaden och fråga om de vill fortsätta
+                        System.out.println("Total kostnad för " + antalBiljetter + " biljetter är: " + totalPris + " kr.");
+
+                        System.out.println("Välj betalningsmetod (1 för Direktbetalning, 2 för Faktura): ");
+                        int choice = scanner.nextInt();
+                        Betalning betalning;
+
+                        if (choice == 1) {
+                            betalning = new Direktbetalning();
+                        } else {
+                            betalning = new Faktura();
+                        }
+
+                        Bokning nyBokning = new Bokning(username, betalning, biljettMusikkonsert);
+                        System.out.println("Bekräfta din bokning? (Ja/Nej)");
+                        String bekreftelse = scanner.next();
+
+                        if (bekreftelse.equalsIgnoreCase("Ja")) {
+                            double biljettPris = 500.0;// Exempelpris
+                            nyBokning.genomforBokning(biljettPris);
+
+                            // Efter att bokningen är genomförd kan man ge användaren en bekräftelse
+                            System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats.");
+                        } else {
+                            System.out.println("Bokning avbruten.");
+                        }
+                        break;
+
+                    } else if (bokaBiljett.equalsIgnoreCase("Nej")) {
+                        break;
+                    } else {
+                        System.out.println("Ogiltigt val, försök igen.");
                     }
 
                 } else {
