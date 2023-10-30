@@ -17,6 +17,6 @@ class Admin extends User {
             System.out.println("Inloggning misslyckades.");
             return false;
         }
-    }//End login
+    }
 
-}//End class
+}

@@ -1,5 +1,4 @@
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 class Bokning {
     private String customer;
@@ -23,8 +22,7 @@ class Bokning {
             @Override
             public void run() {
                 if (!isPaid) {
-                    System.out.println("Bokningstiden har gått ut för " + customer + ". Bokningen avbruten.\n");
-
+                    System.out.println("\nBokningstiden har gått ut för " + customer + ". Bokning avbruten!\n");
                 }
             }
         }, 10 * 60 * 1000);  // 10 minuter i millisekunder

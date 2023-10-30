@@ -19,10 +19,6 @@ public class Event {
         return platsTyp;
     }
 
-    public void bokaPlats(Plats plats, int count) {
-
-    }
-
     public String getName() {
         return name;
     }

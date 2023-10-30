@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Plats {
     private double pris;
     private String platsTyp; // Exempelvis "Ståplats", "Handikappanpassad", "Fällstol", "Bänk"
@@ -21,35 +19,9 @@ public class Plats {
         return false;
     }
 
-    public double getPris() {
-        return pris;
-    }
-
-    public String getPlatsTyp() {
-        return platsTyp;
-    }
-
-    public int getTotalaPlatser() {
-        return totalaPlatser;
-    }
-
-    public int getLedigaPlatser() {
-        return ledigaPlatser;
-    }
-
-    public boolean platsUpptagen() {
-        Random random = new Random();
-        // Genererar ett slumpmässigt booleskt värde
-        return random.nextBoolean();
-    }
-
-    public void boka() {
-        // Bokningslogik här
-    }
-
-    public void avboka() {
-        // Avbokningslogik här
-    }
-
+    public double getPris() {return pris;}
+    public String getPlatsTyp() {return platsTyp;}
+    public int getTotalaPlatser() {return totalaPlatser;}
+    public int getLedigaPlatser() {return ledigaPlatser;}
     // Om det finns specifika funktioner beroende på platsTyp, man kan lägga till dem här och använda villkorliga uttalanden (if-satser) beroende på platsTyp.
 }

@@ -1,5 +1,4 @@
 class Biljett {
-
     private String customer;
     private Event event;
     private Plats plats;
@@ -12,14 +11,8 @@ class Biljett {
         this.antalPlatser = antalPlatser;
     }
 
-    public String getCustomer(){
-        return customer;}
-    public Plats getPlats() {
-        return plats;
-    }
-    public Event getEvent() {
-        return event;
-    }
-    public int getAntalPlatser() {
-        return antalPlatser;}
+    public String getCustomer(){return customer;}
+    public Plats getPlats() {return plats;}
+    public Event getEvent() {return event;}
+    public int getAntalPlatser() {return antalPlatser;}
 }

@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-        {
+
 
         // Skapa arenor
         Arena avicii = new Arena("Avicii Arena");
@@ -180,10 +180,10 @@ public class Main {
                 break;
 
             case "4": //Admin
-                System.out.print("Ange ditt användarnamn: ");
+                System.out.print("Ange användarnamn: ");
                 String AdminUsername = scanner.nextLine();
 
-                System.out.print("Ange ditt lösenord: ");
+                System.out.print("Ange lösenord: ");
                 String AdminPassword = scanner.nextLine();
 
                 Admin admin = new Admin(AdminUsername, AdminPassword);
@@ -218,7 +218,7 @@ public class Main {
                                  newEvent.addPlatsTyp(new Plats(200.0, "Sittplats", 500));
                                  newEvent.addPlatsTyp(new Plats(150.0, "Ståplats", 250));
                                  newEvent.addPlatsTyp(new Plats(100.0, "Bänk", 100));
-                                 newEvent.addPlatsTyp(new Plats(100.0, "Handikapps anpassad", 25));
+                                 newEvent.addPlatsTyp(new Plats(100.0, "Handikappanpassad", 25));
                                  events.add(newEvent);
                                  System.out.print("Nytt event tillagt: " + eventNamn + " - " + eventArena + "\n");
                                  break;
@@ -240,10 +240,9 @@ public class Main {
             default:
                 System.out.println("\nOgiltigt val.\n");
 
-         }//Avslutar switch
+         }
 
-        }// Avslutar While loopen
-        }
-        scanner.close(); // Avslutar scanner
-    }// End Main
-}// End MainClass
+        } // End While loop
+        scanner.close();
+    } // End Main
+} // End MainClass
