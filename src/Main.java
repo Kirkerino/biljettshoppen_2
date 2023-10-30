@@ -169,7 +169,8 @@ public class Main {
                     for (Biljett biljett : bokadeBiljetter) {
                         System.out.println("\nKund: " + biljett.getCustomer());
                         System.out.println("Event: " + biljett.getEvent());
-                        System.out.println("Platstyp: " + biljett.getPlats());
+                        Plats plats = biljett.getPlats();
+                        System.out.println("Platstyp: " + plats.getPlatsTyp());
                         System.out.println("Antal biljetter: " + biljett.getAntalPlatser());
                     }
                 }
