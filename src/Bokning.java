@@ -16,6 +16,7 @@ class Bokning {
         startTimer();
     }
 
+    //Timer på 10 minuter
     private void startTimer() {
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -23,12 +24,13 @@ class Bokning {
             public void run() {
                 if (!isPaid) {
                     System.out.println("Bokningstiden har gått ut för " + customer + ". Bokningen avbruten.\n");
-                    // Här kan du lägga till ytterligare logik för att hantera avbruten bokning
+
                 }
             }
         }, 10 * 60 * 1000);  // 10 minuter i millisekunder
     }
 
+    //För att genomföra bokning och avsluta timer
     public void genomforBokning(double biljettPris) {
         if (!isPaid) {
             isPaid = betalning.betala(biljettPris);

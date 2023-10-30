@@ -9,6 +9,7 @@ class Admin extends User {
         String AdminUsername = "admin"; // Ange det rätta användarnamnet
         String AdminPassword = "admin"; // Ange det rätta lösenordet
 
+        //Här kollas det om användarnamn och lösenord stämmer
         if (username.equals(AdminUsername) && password.equals(AdminPassword)) {
             System.out.println("Admin inloggad.");
             return true;
@@ -16,6 +17,6 @@ class Admin extends User {
             System.out.println("Inloggning misslyckades.");
             return false;
         }
-    }
-    // Andra admin-specifika metoder
-}
+    }//End login
+
+}//End class

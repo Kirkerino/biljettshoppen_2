@@ -1,4 +1,6 @@
 class Biljett {
+
+
     private Event event;
     private Plats plats;
 

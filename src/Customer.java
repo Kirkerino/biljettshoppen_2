@@ -10,6 +10,9 @@ class Customer extends User {
         System.out.println("Kund inloggad.");
         return false;
     }
+
+    //Max antal biljetter = 5
+
     public boolean buyTicket(Event event) {
         if (ticketsBought < 5) {
             ticketsBought++;
