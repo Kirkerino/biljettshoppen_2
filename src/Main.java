@@ -8,13 +8,13 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-    {
+        {
 
         List<Plats> platser = new ArrayList<>();
-        platser.add(new Plats(200.0, "Ståplats"));
-        platser.add(new Plats(300.0, "Sittplats"));
-        platser.add(new Plats(200.0, "Bänk"));
-        platser.add(new Plats(150.0, "Handikappanpassad"));
+        //platser.add(new Plats(200.0, "Ståplats"));
+        //platser.add(new Plats(300.0, "Sittplats"));
+        //platser.add(new Plats(200.0, "Bänk"));
+        //platser.add(new Plats(150.0, "Handikappanpassad"));
         Plats valdPlats = platser.get(0);
 
         // Skapa arenor
@@ -49,18 +49,18 @@ public class Main {
 
         while (!fortvara.equalsIgnoreCase("Q")){
 
-        System.out.println("""
-                 \s
-                 Vad vill du göra?\s
-                 1 - Visa event\s
-                 2 - Visa bokade events\s
-                 3 - Visa användarinformation\s
-                 4 - Admin\s
-                 Q - För att avsluta""");
-        kommando = scanner.nextLine();
+            System.out.println("""
+                  \s
+                  Vad vill du göra?\s
+                  1 - Visa event\s
+                  2 - Visa bokade events\s
+                  3 - Visa användarinformation\s
+                  4 - Admin\s
+                  Q - För att avsluta""");
+            kommando = scanner.nextLine();
 
 
-        switch (kommando) {
+         switch (kommando) {
 
             case "1":
 
@@ -91,16 +91,60 @@ public class Main {
                 String bokaBiljett = scanner.nextLine();
 
                 if (bokaBiljett.equalsIgnoreCase("Ja")) {
-                    int antalBiljetter;
+                    int antalBiljetter = 0;
                     System.out.println("\nDu har valt att boka biljetter för event: " + chosenEvent);
                     while (true) {
+                        System.out.println("Välj platstyp: ");
+                        int index = 1;
+                        for (Plats plats : chosenEvent.getPlatsTyp()) {
+                            System.out.println(index++ + ". " + plats.getPlatsTyp() + " - " + plats.getLedigaPlatser() + " platser kvar.");
+                        }
+
+                        int platsVal = scanner.nextInt();
+                        scanner.nextLine(); //Consume the newline left-over
+                        if (platsVal < 1 || platsVal > chosenEvent.getPlatsTyp().size()) {
+                            System.out.println("Ogiltigt val, försök igen.");
+                            break;
+                        }
+                        Plats chosenPlats = chosenEvent.getPlatsTyp().get(platsVal - 1);
+
                         System.out.println("Ange antal biljetter du vill boka (max 5):");
                         try {
                             antalBiljetter = Integer.parseInt(scanner.nextLine());
-                            if (antalBiljetter > 0 && antalBiljetter <= 5) {
+                            if (antalBiljetter > 0 && antalBiljetter <= 5 && chosenPlats.bokaPlats(antalBiljetter)) {
+                                double totalPris = antalBiljetter * chosenPlats.getPris();
+                                System.out.println("\nTotal kostnad för " + antalBiljetter + " biljetter är: " + totalPris + " kr.");
+                                System.out.println("Välj betalningsmetod (1 för Direktbetalning, 2 för Faktura): ");
+                                int choice = scanner.nextInt();
+                                Betalning betalning;
+
+                                if (choice == 1) {
+                                    betalning = new Direktbetalning();
+                                } else {
+                                    betalning = new Faktura();
+                                }
+
+                                Bokning nyBokning = new Bokning(username, betalning, biljettMusikkonsert);
+                                System.out.println("\nBekräfta din bokning? (Ja/Nej)");
+                                String konfirmera= scanner.next();
+
+                                if (konfirmera.equalsIgnoreCase("Ja")) {
+                                    double biljettPris = 500.0;// Exempelpris
+                                    nyBokning.genomforBokning(biljettPris);
+
+                                    // Efter att bokningen är genomförd kan man ge användaren en bekräftelse
+                                    System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats för event: " + chosenEvent);
+                                    scanner.nextLine();
+                                } else {
+                                    System.out.println("Bokning avbruten.");
+                                }
                                 break; // om antalet är inom tillåtna gränser, bryt while-loopen
+                            } else if (antalBiljetter > 5) {
+                                System.out.println("Du kan inte boka fler än 5 biljetter.");
+                            } else if (!chosenPlats.bokaPlats(antalBiljetter)) {
+                                System.out.println("Inte tillräckligt med platser kvar.");
                             } else {
-                                System.out.println("Du kan bara boka upp till 5 biljetter.");
+                                System.out.println("Ogiltigt biljettantal.");
                             }
 
                         } catch (NumberFormatException e) {
@@ -110,36 +154,10 @@ public class Main {
                     }
 
                         // Antag att vi har ett fast pris per biljett. Detta vara dynamiskt.
-                    double prisPerBiljett = 500.0; // Exempelpris
-                    double totalPris = antalBiljetter * prisPerBiljett;
 
                     // Informera användaren om den totala kostnaden och fråga om de vill fortsätta
-                    System.out.println("\nTotal kostnad för " + antalBiljetter + " biljetter är: " + totalPris + " kr.");
 
-                    System.out.println("Välj betalningsmetod (1 för Direktbetalning, 2 för Faktura): ");
-                    int choice = scanner.nextInt();
-                    Betalning betalning;
 
-                    if (choice == 1) {
-                        betalning = new Direktbetalning();
-                    } else {
-                        betalning = new Faktura();
-                    }
-
-                    Bokning nyBokning = new Bokning(username, betalning, biljettMusikkonsert);
-                    System.out.println("\nBekräfta din bokning? (Ja/Nej)");
-                    String konfirmera= scanner.next();
-
-                    if (konfirmera.equalsIgnoreCase("Ja")) {
-                        double biljettPris = 500.0;// Exempelpris
-                        nyBokning.genomforBokning(biljettPris);
-
-                            // Efter att bokningen är genomförd kan man ge användaren en bekräftelse
-                        System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats för event: " + chosenEvent);
-                        scanner.nextLine();
-                    } else {
-                        System.out.println("Bokning avbruten.");
-                    }
                     break;
 
                 } else if (bokaBiljett.equalsIgnoreCase("Nej")) {
@@ -174,47 +192,47 @@ public class Main {
                 if (inloggad) {
                     boolean exitAdmin = false;
                     while (!exitAdmin) {
-                    System.out.println("Välj ett alternativ:");
-                    System.out.println("1 - Lägg till ny arena.");
-                    System.out.println("2 - Lägg till nytt event.");
-                    System.out.println("3 - Gå tillbaka.");
-                    System.out.println("Q - Avsluta");
-                    String adminVal = scanner.nextLine();
-                    switch (adminVal) {
-                        // Lägga till ny arena
-                        case "1":
-                            System.out.println("Ange namnet på den nya arenan: ");
-                            String arenaNamn = scanner.nextLine();
-                            Arena newArena = new Arena(arenaNamn);
-                            System.out.println("Ny arena tillagd: " + arenaNamn + "\n");
-                            break;
-                        // Lägg till nytt event
-                        case "2":
-                            System.out.println("Ange namnet på det nya eventet: ");
-                            String eventNamn = scanner.nextLine();
-                            System.out.println("Ange arenan för det nya eventet: ");
-                            String eventArena = scanner.nextLine();
-                            Event newEvent = new Event(eventNamn, new Arena(eventArena));
-                            newEvent.addPlatsTyp(new Plats(200.0, "Sittplats", 500));
-                            newEvent.addPlatsTyp(new Plats(150.0, "Ståplats", 250));
-                            newEvent.addPlatsTyp(new Plats(100.0, "Bänk", 100));
-                            newEvent.addPlatsTyp(new Plats(100.0, "Handikappsanpassad", 25));
-                            events.add(newEvent);
-                            // Skapa biljett för eventet
-                            Biljett newEventTicket = new Biljett(newEvent, valdPlats);
-                            System.out.print("Nytt event tillagt: " + eventNamn + " - " + eventArena + "\n");
-                            break;
-                        case "3":
-                            exitAdmin = true;
-                            break;
-                        case "Q":
-                            break;
-                        default:
-                            System.out.println("\nOgiltigt val.\n");
-                    }
+                        System.out.println("Välj ett alternativ:");
+                        System.out.println("1 - Lägg till ny arena.");
+                        System.out.println("2 - Lägg till nytt event.");
+                        System.out.println("3 - Gå tillbaka.");
+                        System.out.println("Q - Avsluta");
+                        String adminVal = scanner.nextLine();
+                        switch (adminVal) {
+                             // Lägga till ny arena
+                            case "1":
+                                 System.out.println("Ange namnet på den nya arenan: ");
+                                 String arenaNamn = scanner.nextLine();
+                                 Arena newArena = new Arena(arenaNamn);
+                                 System.out.println("Ny arena tillagd: " + arenaNamn + "\n");
+                                 break;
+                             // Lägg till nytt event
+                            case "2":
+                                 System.out.println("Ange namnet på det nya eventet: ");
+                                 String eventNamn = scanner.nextLine();
+                                 System.out.println("Ange arenan för det nya eventet: ");
+                                 String eventArena = scanner.nextLine();
+                                 Event newEvent = new Event(eventNamn, new Arena(eventArena));
+                                 newEvent.addPlatsTyp(new Plats(200.0, "Sittplats", 500));
+                                 newEvent.addPlatsTyp(new Plats(150.0, "Ståplats", 250));
+                                 newEvent.addPlatsTyp(new Plats(100.0, "Bänk", 100));
+                                 newEvent.addPlatsTyp(new Plats(100.0, "Handikappsanpassad", 25));
+                                 events.add(newEvent);
+                                 // Skapa biljett för eventet
+                                 Biljett newEventTicket = new Biljett(newEvent, valdPlats);
+                                 System.out.print("Nytt event tillagt: " + eventNamn + " - " + eventArena + "\n");
+                                 break;
+                            case "3":
+                                 exitAdmin = true;
+                                 break;
+                            case "Q":
+                                break;
+                            default:
+                                System.out.println("\nOgiltigt val.\n");
+                        }
                     }
                 }
-                break;
+            break;
             case "q":
             case "Q":
                 fortvara="Q";
@@ -222,9 +240,9 @@ public class Main {
             default:
                 System.out.println("\nOgiltigt val.\n");
 
-                }//Avslutar switch
+         }//Avslutar switch
 
-            }// Avslutar While loopen
+        }// Avslutar While loopen
         }
         scanner.close(); // Avslutar scanner
     }// End Main
