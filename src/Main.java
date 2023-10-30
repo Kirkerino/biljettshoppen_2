@@ -170,7 +170,8 @@ public class Main {
                 boolean inloggad = admin.login();
 
                 if (inloggad) {
-                    while (true) {
+                    boolean exitAdmin = false;
+                    while (!exitAdmin) {
                     System.out.println("Välj ett alternativ:");
                     System.out.println("1 - Lägg till ny arena.");
                     System.out.println("2 - Lägg till nytt event.");
@@ -180,34 +181,38 @@ public class Main {
                     switch (adminVal) {
                         // Lägga till ny arena
                         case "1":
-                            System.out.println("Ange namnet på den nya arenan: \n");
+                            System.out.println("Ange namnet på den nya arenan: ");
                             String arenaNamn = scanner.nextLine();
                             Arena newArena = new Arena(arenaNamn);
+                            System.out.println("Ny arena tillagd: " + arenaNamn + "\n");
                             break;
                         case "2":
-                            System.out.println("Ange namnet på det nya eventet: \n");
+                            System.out.println("Ange namnet på det nya eventet: ");
                             String eventNamn = scanner.nextLine();
-                            System.out.println("Ange arenan för det nya eventet: \n");
+                            System.out.println("Ange arenan för det nya eventet: ");
                             String eventArena = scanner.nextLine();
                             // Hitta arena objektet eller skapa ny arena
                             Event newEvent = new Event(eventNamn, new Arena(eventArena));
+                            events.add(newEvent);
+                            System.out.print("Nytt event tillagt: " + eventNamn + " - " + eventArena + "\n");
                             break;
                         case "3":
-                            return;
-                        case "q":
+                            exitAdmin = true;
+                            break;
                         case "Q":
-                            forsatta = "Q";
                             break;
                         default:
-                            System.out.println("Ogiltigt val.");
-                            break;
+                            System.out.println("\nOgiltigt val.\n");
                     }
                     }
                 }
+                break;
             case "q":
             case "Q":
                 forsatta="Q";
                 break;
+            default:
+                System.out.println("\nOgiltigt val.\n");
 
                 }//Avslutar switch
 
