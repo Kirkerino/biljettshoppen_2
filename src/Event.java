@@ -30,6 +30,6 @@ public class Event {
     @Override
     public String toString() {
         return name + " - " + ((arena != null) ? arena.toString() : "Ingen arena");
-
-}}
+    }
+}
 
