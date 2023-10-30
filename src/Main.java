@@ -14,6 +14,7 @@ public class Main {
         List<Plats> platser = new ArrayList<>();
         platser.add(new Plats(200.0, "Staplats"));
         platser.add(new Plats(300.0, "Sittplats"));
+        platser.add(new Plats(200.0, "Bänk"));
         platser.add(new Plats(150.0, "Handikappanpassad"));
         Plats valdPlats = platser.get(0);
 
