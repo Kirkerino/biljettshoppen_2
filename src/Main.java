@@ -27,11 +27,11 @@ public class Main {
         musikkonsert.addPlatsTyp(new Plats(200.0, "Ståplats", 500));
         musikkonsert.addPlatsTyp(new Plats(300.0, "Sittplats", 300));
         musikkonsert.addPlatsTyp(new Plats(200.0, "Bänk", 200));
-        musikkonsert.addPlatsTyp(new Plats(150.0, "Handikapps anpassad", 50));
+        musikkonsert.addPlatsTyp(new Plats(150.0, "Handikappanpassad", 50));
         hockey.addPlatsTyp(new Plats(250.0, "Ståplats", 600));
         hockey.addPlatsTyp(new Plats(350.0, "Sittplats", 400));
         hockey.addPlatsTyp(new Plats(250.0, "Bänk", 300));
-        hockey.addPlatsTyp(new Plats(200.0, "Handikapps anpassad", 150));
+        hockey.addPlatsTyp(new Plats(200.0, "Handikappanpassad", 150));
 
         // Skapa biljetter
         //Biljett biljettMusikkonsert = new Biljett(musikkonsert, valdPlats);
@@ -86,7 +86,7 @@ public class Main {
                     System.out.println("Tillgängliga platser:");
                     int index = 1;
                     for (Plats plats : chosenEvent.getPlatsTyp()) {
-                        System.out.println(index++ + ". Platstyp: " + plats.getPlatsTyp() + " . Lediga platser: " + plats.getLedigaPlatser() + ". Pris: " + plats.getPris());
+                        System.out.println(index++ + ". Platstyp: " + plats.getPlatsTyp() + " - Lediga platser: " + plats.getLedigaPlatser() + " - Pris: " + plats.getPris() + "kr.");
                     }
 
                     // Boka plats för valt event
@@ -99,7 +99,7 @@ public class Main {
                         System.out.println("Välj platstyp: ");
                         index = 1;
                         for (Plats plats : chosenEvent.getPlatsTyp()) {
-                            System.out.println(index++ + ". Platstyp: " + plats.getPlatsTyp() + " . Lediga platser: " + plats.getLedigaPlatser() + ". Pris: " + plats.getPris());
+                            System.out.println(index++ + ". Platstyp: " + plats.getPlatsTyp() + " - Lediga platser: " + plats.getLedigaPlatser() + " - Pris: " + plats.getPris() + "kr.");
                         }
 
                         int platsVal = scanner.nextInt();
