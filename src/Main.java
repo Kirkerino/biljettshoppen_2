@@ -2,15 +2,14 @@ import java.util.*;
 
 public class Main {
 
-    static String forsatta="Yes";
+    static String fortvara="Yes";
     static String kommando;
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-
     {
+
         List<Plats> platser = new ArrayList<>();
         platser.add(new Plats(200.0, "Ståplats"));
         platser.add(new Plats(300.0, "Sittplats"));
@@ -37,18 +36,18 @@ public class Main {
         /* Skapa arraylist för biljetter */
 
 
-       System.out.println("Välkommen till biljettsystemet!");
-       System.out.print("Ange ditt användarnamn: ");
-       String username = scanner.nextLine();
+        System.out.println("Välkommen till biljettsystemet!");
+        System.out.print("Ange ditt användarnamn: ");
+        String username = scanner.nextLine();
 
-       System.out.print("Ange ditt lösenord: ");
-       String password = scanner.nextLine();
+        System.out.print("Ange ditt lösenord: ");
+        String password = scanner.nextLine();
 
         Customer customer = new Customer(username, password);
 
 
 
-        while (!forsatta.equalsIgnoreCase("Q")){
+        while (!fortvara.equalsIgnoreCase("Q")){
 
         System.out.println("""
                  \s
@@ -83,69 +82,71 @@ public class Main {
                     // Visa platser för valt event
                     System.out.println("Tillgängliga platser:");
                     for (Plats plats : platser) {
-                        int slumpmassigtAntalLediga = random.nextInt(250) + 1;
-                        System.out.println("Typ: " + plats.getPlatsTyp() + ", Antal lediga: " + slumpmassigtAntalLediga+ " av 250");
+                        int randomAntalLediga = random.nextInt(250) + 1;
+                        System.out.println("Typ: " + plats.getPlatsTyp() + ", Antal lediga: " + randomAntalLediga+ " av 250");
                     }
 
                     // Boka plats för valt event
-                    System.out.println("\nVill du boka biljetter för detta event? (Ja/Nej)");
-                    String bokaBiljett = scanner.nextLine();
+                System.out.println("\nVill du boka biljetter för detta event? (Ja/Nej)");
+                String bokaBiljett = scanner.nextLine();
 
-                    if (bokaBiljett.equalsIgnoreCase("Ja")) {
-                        int antalBiljetter = 0;
-                        System.out.println("\nDu har valt att boka biljetter för event: " + chosenEvent);
-                        while (true) {
-                            System.out.println("Ange antal biljetter du vill boka (max 5):");
-                            try {
-                                antalBiljetter = Integer.parseInt(scanner.nextLine());
-                                if (antalBiljetter > 0 && antalBiljetter <= 5) {
-                                    break; // om antalet är inom tillåtna gränser, bryt while-loopen
-                                } else {
-                                    System.out.println("Du kan bara boka upp till 5 biljetter.");
-                                }
-                            } catch (NumberFormatException e) {
-                                System.out.println("Ogiltigt antal. Vänligen ange ett nummer.");
+                if (bokaBiljett.equalsIgnoreCase("Ja")) {
+                    int antalBiljetter;
+                    System.out.println("\nDu har valt att boka biljetter för event: " + chosenEvent);
+                    while (true) {
+                        System.out.println("Ange antal biljetter du vill boka (max 5):");
+                        try {
+                            antalBiljetter = Integer.parseInt(scanner.nextLine());
+                            if (antalBiljetter > 0 && antalBiljetter <= 5) {
+                                break; // om antalet är inom tillåtna gränser, bryt while-loopen
+                            } else {
+                                System.out.println("Du kan bara boka upp till 5 biljetter.");
+                            }
+
+                        } catch (NumberFormatException e) {
+                            System.out.println("Ogiltigt antal. Vänligen ange ett nummer.");
                                 // loopen fortsätter så att användaren kan försöka igen
-                            }}
+                        }
+                    }
 
                         // Antag att vi har ett fast pris per biljett. Detta vara dynamiskt.
-                        double prisPerBiljett = 500.0; // Exempelpris
-                        double totalPris = antalBiljetter * prisPerBiljett;
+                    double prisPerBiljett = 500.0; // Exempelpris
+                    double totalPris = antalBiljetter * prisPerBiljett;
 
-                        // Informera användaren om den totala kostnaden och fråga om de vill fortsätta
-                        System.out.println("\nTotal kostnad för " + antalBiljetter + " biljetter är: " + totalPris + " kr.");
+                    // Informera användaren om den totala kostnaden och fråga om de vill fortsätta
+                    System.out.println("\nTotal kostnad för " + antalBiljetter + " biljetter är: " + totalPris + " kr.");
 
-                        System.out.println("Välj betalningsmetod (1 för Direktbetalning, 2 för Faktura): ");
-                        int choice = scanner.nextInt();
-                        Betalning betalning;
+                    System.out.println("Välj betalningsmetod (1 för Direktbetalning, 2 för Faktura): ");
+                    int choice = scanner.nextInt();
+                    Betalning betalning;
 
-                        if (choice == 1) {
-                            betalning = new Direktbetalning();
-                        } else {
-                            betalning = new Faktura();
-                        }
+                    if (choice == 1) {
+                        betalning = new Direktbetalning();
+                    } else {
+                        betalning = new Faktura();
+                    }
 
-                        Bokning nyBokning = new Bokning(username, betalning, biljettMusikkonsert);
-                        System.out.println("\nBekräfta din bokning? (Ja/Nej)");
-                        String bekreftelse = scanner.next();
+                    Bokning nyBokning = new Bokning(username, betalning, biljettMusikkonsert);
+                    System.out.println("\nBekräfta din bokning? (Ja/Nej)");
+                    String konfirmera= scanner.next();
 
-                        if (bekreftelse.equalsIgnoreCase("Ja")) {
-                            double biljettPris = 500.0;// Exempelpris
-                            nyBokning.genomforBokning(biljettPris);
+                    if (konfirmera.equalsIgnoreCase("Ja")) {
+                        double biljettPris = 500.0;// Exempelpris
+                        nyBokning.genomforBokning(biljettPris);
 
                             // Efter att bokningen är genomförd kan man ge användaren en bekräftelse
-                            System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats för event: " + chosenEvent);
-                            scanner.nextLine();
-                        } else {
-                            System.out.println("Bokning avbruten.");
-                        }
-                        break;
-
-                    } else if (bokaBiljett.equalsIgnoreCase("Nej")) {
-                        break;
+                        System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats för event: " + chosenEvent);
+                        scanner.nextLine();
                     } else {
-                        System.out.println("Ogiltigt val, försök igen.");
+                        System.out.println("Bokning avbruten.");
                     }
+                    break;
+
+                } else if (bokaBiljett.equalsIgnoreCase("Nej")) {
+                    break;
+                } else {
+                    System.out.println("Ogiltigt val, försök igen.");
+                }
 
                 } else {
                     System.out.println("Ogiltigt val, försök igen.");
@@ -216,7 +217,7 @@ public class Main {
                 break;
             case "q":
             case "Q":
-                forsatta="Q";
+                fortvara="Q";
                 break;
             default:
                 System.out.println("\nOgiltigt val.\n");

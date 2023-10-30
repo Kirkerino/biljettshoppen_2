@@ -4,3 +4,12 @@ public interface Betalning {
 
     boolean betala(double belopp);
 }//End interface Betalning
+
+
+
+
+
+
+
+
+
