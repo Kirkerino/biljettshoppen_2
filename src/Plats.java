@@ -2,11 +2,23 @@ import java.util.Random;
 
 public class Plats {
     private double pris;
-    private String platsTyp; // Exempelvis "Staplats", "Handikappanpassad", "Fallstol"
+    private String platsTyp; // Exempelvis "Ståplats", "Handikappanpassad", "Fällstol", "Bänk"
+    private int totalaPlatser;
+    private int ledigaPlatser;
 
-    public Plats(double pris, String platsTyp) {
+    public Plats(double pris, String platsTyp, int totalaPlatser) {
         this.pris = pris;
         this.platsTyp = platsTyp;
+        this.totalaPlatser = totalaPlatser;
+        this.ledigaPlatser = totalaPlatser;
+    }
+
+    public boolean bokaPlats(int antalPlatser) {
+        if (antalPlatser <= ledigaPlatser) {
+            ledigaPlatser -= antalPlatser;
+            return true;
+        }
+        return false;
     }
 
     public double getPris() {
@@ -15,6 +27,14 @@ public class Plats {
 
     public String getPlatsTyp() {
         return platsTyp;
+    }
+
+    public int getTotalaPlatser() {
+        return totalaPlatser;
+    }
+
+    public int getLedigaPlatser() {
+        return ledigaPlatser;
     }
 
     public boolean platsUpptagen() {

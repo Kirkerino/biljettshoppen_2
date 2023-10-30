@@ -36,9 +36,9 @@ class Bokning {
             isPaid = betalning.betala(biljettPris);
             if (isPaid) {
                 timer.cancel();  // Avbryt timern när betalningen är genomförd
-                System.out.println("Bokning genomförd för " + customer+ "\n");
+                System.out.println("Bokning genomförd för " + customer + "\n");
             } else {
-                System.out.println("Betalningen misslyckades för " + customer+ "\n");
+                System.out.println("Betalningen misslyckades för " + customer + "\n");
             }
         } else {
             System.out.println("Bokningen har redan betalats eller avbrutits.\n");

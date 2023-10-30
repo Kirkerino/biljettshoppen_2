@@ -1,11 +1,7 @@
 class Biljett {
 
-
     private Event event;
     private Plats plats;
-
-
-
 
     public Biljett(Event event, Plats plats) {
         this.event = event;

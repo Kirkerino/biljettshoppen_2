@@ -12,7 +12,7 @@ public class Main {
 
     {
         List<Plats> platser = new ArrayList<>();
-        platser.add(new Plats(200.0, "Staplats"));
+        platser.add(new Plats(200.0, "Ståplats"));
         platser.add(new Plats(300.0, "Sittplats"));
         platser.add(new Plats(200.0, "Bänk"));
         platser.add(new Plats(150.0, "Handikappanpassad"));
@@ -187,14 +187,20 @@ public class Main {
                             Arena newArena = new Arena(arenaNamn);
                             System.out.println("Ny arena tillagd: " + arenaNamn + "\n");
                             break;
+                        // Lägg till nytt event
                         case "2":
                             System.out.println("Ange namnet på det nya eventet: ");
                             String eventNamn = scanner.nextLine();
                             System.out.println("Ange arenan för det nya eventet: ");
                             String eventArena = scanner.nextLine();
-                            // Hitta arena objektet eller skapa ny arena
                             Event newEvent = new Event(eventNamn, new Arena(eventArena));
+                            newEvent.addPlatsTyp(new Plats(200.0, "Sittplats", 500));
+                            newEvent.addPlatsTyp(new Plats(150.0, "Ståplats", 250));
+                            newEvent.addPlatsTyp(new Plats(100.0, "Bänk", 100));
+                            newEvent.addPlatsTyp(new Plats(100.0, "Handikappsanpassad", 25));
                             events.add(newEvent);
+                            // Skapa biljett för eventet
+                            Biljett newEventTicket = new Biljett(newEvent, valdPlats);
                             System.out.print("Nytt event tillagt: " + eventNamn + " - " + eventArena + "\n");
                             break;
                         case "3":
