@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.util.*;
 
 public class Main {
@@ -23,6 +24,7 @@ public class Main {
         events.add(musikkonsert);
         events.add(hockey);
 
+        // Platser för event
         List<Plats> platser = new ArrayList<>();
         musikkonsert.addPlatsTyp(new Plats(200.0, "Ståplats", 500));
         musikkonsert.addPlatsTyp(new Plats(300.0, "Sittplats", 300));
@@ -33,11 +35,8 @@ public class Main {
         hockey.addPlatsTyp(new Plats(250.0, "Bänk", 300));
         hockey.addPlatsTyp(new Plats(200.0, "Handikappanpassad", 150));
 
-        // Skapa biljetter
-        //Biljett biljettMusikkonsert = new Biljett(musikkonsert, valdPlats);
-        //Biljett biljettHockey = new Biljett(hockey, valdPlats);
-        /* Skapa arraylist för biljetter */
-
+        // Biljettförvaring för användaren
+        List<Biljett> bokadeBiljetter = new ArrayList();
 
         System.out.println("Välkommen till biljettsystemet!");
         System.out.print("Ange ditt användarnamn: ");
@@ -56,7 +55,7 @@ public class Main {
                   \s
                   Vad vill du göra?\s
                   1 - Visa event\s
-                  2 - Visa bokade events\s
+                  2 - Visa bokade biljetter\s
                   3 - Visa användarinformation\s
                   4 - Admin\s
                   Q - För att avsluta""");
@@ -147,8 +146,11 @@ public class Main {
                             nyBokning.genomforBokning(totalPris);
                             // Efter att bokningen är genomförd kan man ge användaren en bekräftelse
                             System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats för event: " + chosenEvent);
-                            scanner.nextLine();
+
                             // Generera biljett ~
+                            Biljett nyBiljett = new Biljett(username, chosenEvent, chosenPlats, antalBiljetter);
+                            bokadeBiljetter.add(nyBiljett);
+                            scanner.nextLine();
                         } else {
                         System.out.println("Bokning avbruten.");
                         }
@@ -160,6 +162,17 @@ public class Main {
                 break;
 
             case "2":
+                if (bokadeBiljetter.isEmpty()) {
+                    System.out.println("Du har inga bokade biljetter.");
+                    break;
+                } else {
+                    for (Biljett biljett : bokadeBiljetter) {
+                        System.out.println("Kund: " + biljett.getCustomer());
+                        System.out.println("Event: " + biljett.getEvent());
+                        System.out.println("Platstyp: " + biljett.getPlats());
+                        System.out.println("Antal biljetter: " + biljett.getAntalPlatser());
+                    }
+                }
                 break;
 
             case "3":
