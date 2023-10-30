@@ -4,15 +4,15 @@ import java.util.TimerTask;
 class Bokning {
     private String customer;
     private Betalning betalning;
-    private Biljett biljett;
+    private Event event;
     private Timer timer;
     private boolean isPaid = false;
     private boolean isConfirmed = false;
 
-    public Bokning(String customer, Betalning betalning, Biljett biljett) {
+    public Bokning(String customer, Betalning betalning, Event event) {
         this.customer = customer;
         this.betalning = betalning;
-        this.biljett = biljett;
+        this.event = event;
         startTimer();
     }
 

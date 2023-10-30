@@ -31,8 +31,8 @@ public class Main {
         events.add(hockey);
 
         // Skapa biljetter
-        Biljett biljettMusikkonsert = new Biljett(musikkonsert, valdPlats);
-        Biljett biljettHockey = new Biljett(hockey, valdPlats);
+        //Biljett biljettMusikkonsert = new Biljett(musikkonsert, valdPlats);
+        //Biljett biljettHockey = new Biljett(hockey, valdPlats);
         /* Skapa arraylist för biljetter */
 
 
@@ -91,9 +91,8 @@ public class Main {
                 String bokaBiljett = scanner.nextLine();
 
                 if (bokaBiljett.equalsIgnoreCase("Ja")) {
-                    int antalBiljetter = 0;
+                    int antalBiljetter;
                     System.out.println("\nDu har valt att boka biljetter för event: " + chosenEvent);
-                    while (true) {
                         System.out.println("Välj platstyp: ");
                         int index = 1;
                         for (Plats plats : chosenEvent.getPlatsTyp()) {
@@ -106,69 +105,55 @@ public class Main {
                             System.out.println("Ogiltigt val, försök igen.");
                             break;
                         }
+
                         Plats chosenPlats = chosenEvent.getPlatsTyp().get(platsVal - 1);
 
                         System.out.println("Ange antal biljetter du vill boka (max 5):");
                         try {
                             antalBiljetter = Integer.parseInt(scanner.nextLine());
-                            if (antalBiljetter > 0 && antalBiljetter <= 5 && chosenPlats.bokaPlats(antalBiljetter)) {
-                                double totalPris = antalBiljetter * chosenPlats.getPris();
-                                System.out.println("\nTotal kostnad för " + antalBiljetter + " biljetter är: " + totalPris + " kr.");
-                                System.out.println("Välj betalningsmetod (1 för Direktbetalning, 2 för Faktura): ");
-                                int choice = scanner.nextInt();
-                                Betalning betalning;
-
-                                if (choice == 1) {
-                                    betalning = new Direktbetalning();
-                                } else {
-                                    betalning = new Faktura();
-                                }
-
-                                Bokning nyBokning = new Bokning(username, betalning, biljettMusikkonsert);
-                                System.out.println("\nBekräfta din bokning? (Ja/Nej)");
-                                String konfirmera= scanner.next();
-
-                                if (konfirmera.equalsIgnoreCase("Ja")) {
-                                    double biljettPris = 500.0;// Exempelpris
-                                    nyBokning.genomforBokning(biljettPris);
-
-                                    // Efter att bokningen är genomförd kan man ge användaren en bekräftelse
-                                    System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats för event: " + chosenEvent);
-                                    scanner.nextLine();
-                                } else {
-                                    System.out.println("Bokning avbruten.");
-                                }
-                                break; // om antalet är inom tillåtna gränser, bryt while-loopen
-                            } else if (antalBiljetter > 5) {
-                                System.out.println("Du kan inte boka fler än 5 biljetter.");
-                            } else if (!chosenPlats.bokaPlats(antalBiljetter)) {
-                                System.out.println("Inte tillräckligt med platser kvar.");
-                            } else {
-                                System.out.println("Ogiltigt biljettantal.");
+                            if (antalBiljetter <= 0 || antalBiljetter > 5) {
+                                System.out.println("Antalet biljetter måste vara mellan 1 och 5.");
+                                break;
                             }
-
                         } catch (NumberFormatException e) {
-                            System.out.println("Ogiltigt antal. Vänligen ange ett nummer.");
-                                // loopen fortsätter så att användaren kan försöka igen
+                            System.out.println("Ogiltig karaktär. Ange en siffra.");
+                            break;
                         }
-                    }
 
-                        // Antag att vi har ett fast pris per biljett. Detta vara dynamiskt.
+                        if (!chosenPlats.bokaPlats(antalBiljetter)) {
+                            System.out.println("Inte tillräckligt med platser kvar.");
+                            break;
+                        }
 
-                    // Informera användaren om den totala kostnaden och fråga om de vill fortsätta
+                        double totalPris = antalBiljetter * chosenPlats.getPris();
+                        System.out.println("\nTotal kostnad för " + antalBiljetter + " biljetter är: " + totalPris + " kr.");
 
+                        System.out.println("Välj betalningsmetod (1 för Direktbetalning, 2 för Faktura): ");
+                        int choice = scanner.nextInt();
+                        Betalning betalning;
+                        if (choice == 1) {
+                           betalning = new Direktbetalning();
+                        } else {
+                            betalning = new Faktura();
+                        }
+
+                        Bokning nyBokning = new Bokning(username, betalning, chosenEvent);
+                        System.out.println("\nBekräfta din bokning? (Ja/Nej)");
+                        String konfirmera= scanner.next();
+                        if (konfirmera.equalsIgnoreCase("Ja")) {
+                            nyBokning.genomforBokning(totalPris);
+                            // Efter att bokningen är genomförd kan man ge användaren en bekräftelse
+                            System.out.println("Tack, " + username + "! Din bokning har genomförts och betalats för event: " + chosenEvent);
+                            scanner.nextLine();
+                            // Generera biljett ~
+                        } else {
+                        System.out.println("Bokning avbruten.");
+                        }
 
                     break;
-
-                } else if (bokaBiljett.equalsIgnoreCase("Nej")) {
-                    break;
-                } else {
-                    System.out.println("Ogiltigt val, försök igen.");
+                }
                 }
 
-                } else {
-                    System.out.println("Ogiltigt val, försök igen.");
-                }
                 break;
 
             case "2":
@@ -218,8 +203,6 @@ public class Main {
                                  newEvent.addPlatsTyp(new Plats(100.0, "Bänk", 100));
                                  newEvent.addPlatsTyp(new Plats(100.0, "Handikappsanpassad", 25));
                                  events.add(newEvent);
-                                 // Skapa biljett för eventet
-                                 Biljett newEventTicket = new Biljett(newEvent, valdPlats);
                                  System.out.print("Nytt event tillagt: " + eventNamn + " - " + eventArena + "\n");
                                  break;
                             case "3":
