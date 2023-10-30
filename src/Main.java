@@ -168,8 +168,43 @@ public class Main {
 
                 // Anropa login-metoden för att försöka logga in
                 boolean inloggad = admin.login();
-                break;
 
+                if (inloggad) {
+                    while (true) {
+                    System.out.println("Välj ett alternativ:");
+                    System.out.println("1 - Lägg till ny arena.");
+                    System.out.println("2 - Lägg till nytt event.");
+                    System.out.println("3 - Gå tillbaka.");
+                    System.out.println("Q - Avsluta");
+                    String adminVal = scanner.nextLine();
+                    switch (adminVal) {
+                        // Lägga till ny arena
+                        case "1":
+                            System.out.println("Ange namnet på den nya arenan: \n");
+                            String arenaNamn = scanner.nextLine();
+                            Arena newArena = new Arena(arenaNamn);
+                            break;
+                        case "2":
+                            System.out.println("Ange namnet på det nya eventet: \n");
+                            String eventNamn = scanner.nextLine();
+                            System.out.println("Ange arenan för det nya eventet: \n");
+                            String eventArena = scanner.nextLine();
+                            // Hitta arena objektet eller skapa ny arena
+                            Event newEvent = new Event(eventNamn, new Arena(eventArena));
+                            break;
+                        case "3":
+                            return;
+                        case "q":
+                        case "Q":
+                            forsatta = "Q";
+                            break;
+                        default:
+                            System.out.println("Ogiltigt val.");
+                            break;
+                    }
+                    }
+                }
+            case "q":
             case "Q":
                 forsatta="Q";
                 break;
