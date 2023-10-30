@@ -14,8 +14,8 @@ public class Main {
         //platser.add(new Plats(200.0, "Ståplats"));
         //platser.add(new Plats(300.0, "Sittplats"));
         //platser.add(new Plats(200.0, "Bänk"));
-        //platser.add(new Plats(150.0, "Handikappanpassad"));
-        Plats valdPlats = platser.get(0);
+        //platser.add(new Plats(150.0, "Handikapps anpassad"));
+        //Plats valdPlats = platser.get(0);
 
         // Skapa arenor
         Arena avicii = new Arena("Avicii Arena");
@@ -201,7 +201,7 @@ public class Main {
                                  newEvent.addPlatsTyp(new Plats(200.0, "Sittplats", 500));
                                  newEvent.addPlatsTyp(new Plats(150.0, "Ståplats", 250));
                                  newEvent.addPlatsTyp(new Plats(100.0, "Bänk", 100));
-                                 newEvent.addPlatsTyp(new Plats(100.0, "Handikappsanpassad", 25));
+                                 newEvent.addPlatsTyp(new Plats(100.0, "Handikapps anpassad", 25));
                                  events.add(newEvent);
                                  System.out.print("Nytt event tillagt: " + eventNamn + " - " + eventArena + "\n");
                                  break;

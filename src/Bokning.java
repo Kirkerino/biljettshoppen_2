@@ -45,7 +45,7 @@ class Bokning {
         }
     }
 
-    public void bekreftaBokning() {
+    public void valideraBokning() {
         // Kontrollera om bokningen redan har betalats
         if (this.isPaid) {
             // Om bokningen redan är betald, kan vi bekräfta den
@@ -62,7 +62,7 @@ class Bokning {
     }
 
     // metod för att kontrollera om bokningen har bekräftats
-    public boolean isBekräftad() {
+    public boolean isValiderad() {
         return this.isConfirmed;
     }
 }
