@@ -10,13 +10,6 @@ public class Main {
         Random random = new Random();
         {
 
-        List<Plats> platser = new ArrayList<>();
-        //platser.add(new Plats(200.0, "Ståplats"));
-        //platser.add(new Plats(300.0, "Sittplats"));
-        //platser.add(new Plats(200.0, "Bänk"));
-        //platser.add(new Plats(150.0, "Handikapps anpassad"));
-        //Plats valdPlats = platser.get(0);
-
         // Skapa arenor
         Arena avicii = new Arena("Avicii Arena");
         Arena globen = new Arena("Globen Arena");
@@ -29,6 +22,16 @@ public class Main {
         List<Event> events = new ArrayList<>();
         events.add(musikkonsert);
         events.add(hockey);
+
+        List<Plats> platser = new ArrayList<>();
+        musikkonsert.addPlatsTyp(new Plats(200.0, "Ståplats", 500));
+        musikkonsert.addPlatsTyp(new Plats(300.0, "Sittplats", 300));
+        musikkonsert.addPlatsTyp(new Plats(200.0, "Bänk", 200));
+        musikkonsert.addPlatsTyp(new Plats(150.0, "Handikapps anpassad", 50));
+        hockey.addPlatsTyp(new Plats(250.0, "Ståplats", 600));
+        hockey.addPlatsTyp(new Plats(350.0, "Sittplats", 400));
+        hockey.addPlatsTyp(new Plats(250.0, "Bänk", 300));
+        hockey.addPlatsTyp(new Plats(200.0, "Handikapps anpassad", 150));
 
         // Skapa biljetter
         //Biljett biljettMusikkonsert = new Biljett(musikkonsert, valdPlats);
@@ -81,9 +84,9 @@ public class Main {
 
                     // Visa platser för valt event
                     System.out.println("Tillgängliga platser:");
-                    for (Plats plats : platser) {
-                        int randomAntalLediga = random.nextInt(250) + 1;
-                        System.out.println("Typ: " + plats.getPlatsTyp() + ", Antal lediga: " + randomAntalLediga+ " av 250");
+                    int index = 1;
+                    for (Plats plats : chosenEvent.getPlatsTyp()) {
+                        System.out.println(index++ + ". Platstyp: " + plats.getPlatsTyp() + " . Lediga platser: " + plats.getLedigaPlatser() + ". Pris: " + plats.getPris());
                     }
 
                     // Boka plats för valt event
@@ -94,9 +97,9 @@ public class Main {
                     int antalBiljetter;
                     System.out.println("\nDu har valt att boka biljetter för event: " + chosenEvent);
                         System.out.println("Välj platstyp: ");
-                        int index = 1;
+                        index = 1;
                         for (Plats plats : chosenEvent.getPlatsTyp()) {
-                            System.out.println(index++ + ". " + plats.getPlatsTyp() + " - " + plats.getLedigaPlatser() + " platser kvar.");
+                            System.out.println(index++ + ". Platstyp: " + plats.getPlatsTyp() + " . Lediga platser: " + plats.getLedigaPlatser() + ". Pris: " + plats.getPris());
                         }
 
                         int platsVal = scanner.nextInt();
@@ -108,7 +111,7 @@ public class Main {
 
                         Plats chosenPlats = chosenEvent.getPlatsTyp().get(platsVal - 1);
 
-                        System.out.println("Ange antal biljetter du vill boka (max 5):");
+                        System.out.println("Du har valt platstyp: " + chosenPlats.getPlatsTyp() + "\nAnge antal biljetter du vill boka (max 5):");
                         try {
                             antalBiljetter = Integer.parseInt(scanner.nextLine());
                             if (antalBiljetter <= 0 || antalBiljetter > 5) {
