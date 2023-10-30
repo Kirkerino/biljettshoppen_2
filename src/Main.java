@@ -2,7 +2,6 @@ import java.sql.Array;
 import java.util.*;
 
 public class Main {
-
     static String fortvara="Yes";
     static String kommando;
 
